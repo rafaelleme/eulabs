@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: "false"
+      MYSQL_DATABASE: main
+      MYSQL_USER: user
+      MYSQL_PASSWORD: passwd
+    ports:
+      - "3306:3306"
+
+  app:
+    image: cosmtrek/air
+    depends_on:
+      - "db"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - "8080:8080"
